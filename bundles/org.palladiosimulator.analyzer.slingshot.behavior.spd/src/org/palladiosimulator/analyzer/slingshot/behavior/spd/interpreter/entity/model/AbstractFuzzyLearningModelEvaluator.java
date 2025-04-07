@@ -118,9 +118,12 @@ public abstract class AbstractFuzzyLearningModelEvaluator extends LearningBasedM
         this.discountFactor = model.getDiscountFactor();
         this.epsilon = model.getEpsilon();
         this.learningRate = model.getLearningRate();
-        this.targetResponseTime = model.getTargetResponseTime();
-        this.responseTimeAggregator = modelInterpreter.getAggregatorForStimulus(model.getResponseTimeStimulus(), model,
-                model.getResponseTimeAggregationMethod());
+        this.targetResponseTime = model.getResponseTimeSpecification()
+            .getTargetResponseTime();
+        this.responseTimeAggregator = modelInterpreter.getAggregatorForStimulus(model.getResponseTimeSpecification()
+            .getResponseTimeStimulus(), model,
+                model.getResponseTimeSpecification()
+                    .getResponseTimeAggregationMethod());
         this.workloadAggregator = modelInterpreter.getAggregatorForStimulus(model.getWorkloadStimulus(), model);
         this.nf.setMaximumFractionDigits(3);
         this.nf.setMinimumFractionDigits(3);
