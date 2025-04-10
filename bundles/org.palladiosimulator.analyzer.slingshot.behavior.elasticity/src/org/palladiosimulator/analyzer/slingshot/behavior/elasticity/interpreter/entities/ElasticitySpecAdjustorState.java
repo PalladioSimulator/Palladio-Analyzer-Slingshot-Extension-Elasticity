@@ -12,7 +12,7 @@ import org.palladiosimulator.elasticity.ScalingPolicy;
  *
  * @author Julijan Katic, Floriment Klinaku
  */
-public final class SPDAdjustorState {
+public final class ElasticitySpecAdjustorState {
 
     private double latestAdjustmentAtSimulationTime = 0;
     private int numberScales = 0;
@@ -25,7 +25,7 @@ public final class SPDAdjustorState {
     private double coolDownEnd = 0;
     private int numberOfScalesInCooldown = 0;
 
-    public SPDAdjustorState(final ScalingPolicy scalingPolicy, final TargetGroupState targetGroupState) {
+    public ElasticitySpecAdjustorState(final ScalingPolicy scalingPolicy, final TargetGroupState targetGroupState) {
         this.scalingPolicy = Objects.requireNonNull(scalingPolicy);
         this.targetGroupState = Objects.requireNonNull(targetGroupState);
     }

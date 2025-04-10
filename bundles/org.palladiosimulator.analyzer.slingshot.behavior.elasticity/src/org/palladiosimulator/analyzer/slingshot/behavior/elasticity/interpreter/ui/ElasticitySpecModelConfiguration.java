@@ -9,7 +9,7 @@ import org.palladiosimulator.elasticity.ElasticitySpec;
 
 @OnEvent(when = ArchitectureModelsTabBuilderStarted.class)
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)
-public class SPDModelConfiguration implements SystemBehaviorExtension {
+public class ElasticitySpecModelConfiguration implements SystemBehaviorExtension {
 
     public static final String FILE_NAME = "spd";
     public static final String[] FILE_EXTENSIONS = new String[] { "*.spd" };

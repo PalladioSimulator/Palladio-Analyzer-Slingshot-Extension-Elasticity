@@ -4,15 +4,15 @@ import org.palladiosimulator.analyzer.slingshot.common.events.AbstractSimulation
 
 /**
  * An event that is scheduled at an exact simulation time and repeats on a schedule. In context of
- * SPD, this is needed especially for predictive triggers that recompute some measures on a
- * schedule.
+ * the Slingshot Elasticity extension, this is needed especially for predictive triggers that
+ * recompute some measures on a schedule.
  * 
  * This event also carries a necessary target group (identifier) in order to correctly identify
  * whether this event belongs to the right scaling policy.
  * 
  * @author Jens Berberich, Julijan Katic
  */
-public class RepeatedSimulationTimeReached extends AbstractSimulationEvent implements SpdBasedEvent {
+public class RepeatedSimulationTimeReached extends AbstractSimulationEvent implements ElasticityBasedEvent {
 
     private final String targetGroupId;
     private double repetitionTime;

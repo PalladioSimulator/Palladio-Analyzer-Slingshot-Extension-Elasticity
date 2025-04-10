@@ -12,14 +12,14 @@ import org.palladiosimulator.semanticelasticityspec.Configuration;
 
 import com.google.inject.Provides;
 
-public class SpdAdjustorModule extends AbstractSlingshotExtension {
+public class ElasticityAdjustorModule extends AbstractSlingshotExtension {
 
-	private static final String MAIN_QVTO_FILE = "platform:/plugin/org.palladiosimulator.spd.semantic.transformations/transformations/spd/MainTransformation.qvto";
+	private static final String MAIN_QVTO_FILE = "platform:/plugin/org.palladiosimulator.elasticity.semantic.transformations/transformations/elasticity/MainTransformation.qvto";
 	public static final String MAIN_QVTO = "mainqvto";
 	
 	@Override
 	protected void configure() {
-		install(SpdAdjustmentBehavior.class);
+		install(ElasticityAdjustmentBehavior.class);
 		install(SemanticModelLaunchConfig.class);
 		provideModel(Configuration.class, SemanticModelProvider.class);
 

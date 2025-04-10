@@ -4,7 +4,7 @@ import org.palladiosimulator.elasticity.triggers.stimuli.ManagedElementsStateSti
 
 /**
  * The WindowAggregation interface defines the contract of how aggregations are
- * supposed to be processed in context of SPD.
+ * supposed to be processed in context of an Elasticity Spec.
  * 
  * A ScalingPolicy applies to a TargetGroup which in PCM can be a set of
  * ResourceContainers or AssemblyCtxts. If the policy uses triggers that as

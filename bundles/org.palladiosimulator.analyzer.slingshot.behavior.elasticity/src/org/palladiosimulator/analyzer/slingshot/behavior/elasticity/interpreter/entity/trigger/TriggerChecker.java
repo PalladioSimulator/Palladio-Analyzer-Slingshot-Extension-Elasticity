@@ -32,7 +32,7 @@ public abstract class TriggerChecker<T extends Stimulus> implements Filter {
      * Constructor of the Trigger checker.
      * 
      * This constructor also requires a set of allowed {@link ExpectedPrimitive}. If the provided
-     * SPD uses a different {@link ExpectedPrimitive}, the trigger should abort.
+     * Elasticity Spec uses a different {@link ExpectedPrimitive}, the trigger should abort.
      * 
      * @param trigger
      *            The actual trigger to use for checking.

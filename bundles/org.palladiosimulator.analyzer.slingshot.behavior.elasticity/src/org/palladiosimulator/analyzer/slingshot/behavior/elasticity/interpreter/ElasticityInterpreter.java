@@ -8,9 +8,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.RepeatedSimulationTimeReached;
-import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.SpdBasedEvent;
+import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.ElasticityBasedEvent;
+import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.ElasticitySpecAdjustorContext;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.FilterChain;
-import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.SPDAdjustorContext;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.TargetGroupState;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entity.model.ModelEvaluator;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entity.trigger.ModelBasedTriggerChecker;
@@ -27,13 +27,14 @@ import org.palladiosimulator.elasticity.targets.TargetGroup;
 import org.palladiosimulator.elasticity.util.ElasticitySwitch;
 
 /**
- * A simple SPD interpreter that will build a {@link FilterChain} for each scaling policy.
+ * A simple Elasticity Spec interpreter that will build a {@link FilterChain} for each scaling
+ * policy.
  *
  * @author Julijan Katic
  */
-class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResult> {
+class ElasticityInterpreter extends ElasticitySwitch<ElasticityInterpreter.InterpretationResult> {
 
-    private static final Logger LOGGER = Logger.getLogger(SpdInterpreter.class);
+    private static final Logger LOGGER = Logger.getLogger(ElasticityInterpreter.class);
 
     private final Map<TargetGroup, TargetGroupState> targetGroupStates = new HashMap<>();
 
@@ -65,7 +66,7 @@ class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResul
         final ScalingTriggerInterpreter.InterpretationResult intrResult = (new ScalingTriggerInterpreter(policy))
             .doSwitch(policy.getScalingTrigger());
         return (new InterpretationResult())
-            .adjustorContext(new SPDAdjustorContext(policy, intrResult.getTriggerChecker(),
+            .adjustorContext(new ElasticitySpecAdjustorContext(policy, intrResult.getTriggerChecker(),
                     intrResult.getEventsToListen(), this.targetGroupStates.get(policy.getTargetGroup())))
             .eventsToSchedule(intrResult.getEventsToSchedule());
     }
@@ -112,7 +113,7 @@ class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResul
             .triggerChecker(new ModelBasedTriggerChecker(modelEvaluator));
 
         return (new InterpretationResult())
-            .adjustorContext(new SPDAdjustorContext(policy, intrResult.getTriggerChecker(),
+            .adjustorContext(new ElasticitySpecAdjustorContext(policy, intrResult.getTriggerChecker(),
                     intrResult.getEventsToListen(), this.targetGroupStates.get(policy.getTargetGroup())))
             .eventsToSchedule(intrResult.getEventsToSchedule());
     }
@@ -126,8 +127,8 @@ class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResul
 
         public static final InterpretationResult EMPTY_RESULT = new InterpretationResult();
 
-        private final List<SPDAdjustorContext> adjustorContexts;
-        private final List<SpdBasedEvent> eventsToSchedule;
+        private final List<ElasticitySpecAdjustorContext> adjustorContexts;
+        private final List<ElasticityBasedEvent> eventsToSchedule;
         private final List<Subscriber<? extends DESEvent>> subscribers;
 
         InterpretationResult() {
@@ -136,8 +137,8 @@ class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResul
             this.subscribers = new ArrayList<>();
         }
 
-        InterpretationResult(final List<SPDAdjustorContext> adjustorContexts,
-                final List<SpdBasedEvent> eventsToSchedule, final List<Subscriber<? extends DESEvent>> subscribers) {
+        InterpretationResult(final List<ElasticitySpecAdjustorContext> adjustorContexts,
+                final List<ElasticityBasedEvent> eventsToSchedule, final List<Subscriber<? extends DESEvent>> subscribers) {
             this.adjustorContexts = new ArrayList<>(adjustorContexts);
             this.eventsToSchedule = new ArrayList<>(eventsToSchedule);
             this.subscribers = new ArrayList<>(subscribers);
@@ -152,26 +153,27 @@ class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResul
             this(other.adjustorContexts, other.eventsToSchedule, other.subscribers);
         }
 
-        public InterpretationResult adjustorContext(final SPDAdjustorContext adjustorContext) {
+        public InterpretationResult adjustorContext(final ElasticitySpecAdjustorContext adjustorContext) {
             this.adjustorContexts.add(adjustorContext);
             return this;
         }
 
-        public InterpretationResult adjustorContext(final Collection<? extends SPDAdjustorContext> adjustorContexts) {
+        public InterpretationResult adjustorContext(
+                final Collection<? extends ElasticitySpecAdjustorContext> adjustorContexts) {
             this.adjustorContexts.addAll(adjustorContexts);
             return this;
         }
 
-        public InterpretationResult eventsToSchedule(final Collection<? extends SpdBasedEvent> eventsToSchedule) {
+        public InterpretationResult eventsToSchedule(final Collection<? extends ElasticityBasedEvent> eventsToSchedule) {
             this.eventsToSchedule.addAll(eventsToSchedule);
             return this;
         }
 
-        public List<SPDAdjustorContext> getAdjustorContexts() {
+        public List<ElasticitySpecAdjustorContext> getAdjustorContexts() {
             return this.adjustorContexts;
         }
 
-        public List<SpdBasedEvent> getEventsToSchedule() {
+        public List<ElasticityBasedEvent> getEventsToSchedule() {
             return this.eventsToSchedule;
         }
 

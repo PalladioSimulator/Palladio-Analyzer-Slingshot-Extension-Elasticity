@@ -13,9 +13,9 @@ import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 public final class FilterObjectWrapper {
 
 	private final DESEvent eventToFilter;
-	private final SPDAdjustorState state;
+	private final ElasticitySpecAdjustorState state;
 	
-	public FilterObjectWrapper(DESEvent objectToFilter, SPDAdjustorState state) {
+	public FilterObjectWrapper(DESEvent objectToFilter, ElasticitySpecAdjustorState state) {
 		super();
 		this.eventToFilter = objectToFilter;
 		this.state = state;
@@ -25,7 +25,7 @@ public final class FilterObjectWrapper {
 		return eventToFilter;
 	}
 	
-	public SPDAdjustorState getState() {
+	public ElasticitySpecAdjustorState getState() {
 		return state;
 	}
 	

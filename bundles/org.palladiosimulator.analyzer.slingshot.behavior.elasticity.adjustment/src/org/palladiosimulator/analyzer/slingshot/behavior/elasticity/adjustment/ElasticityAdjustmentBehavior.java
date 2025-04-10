@@ -35,9 +35,9 @@ import org.palladiosimulator.semanticelasticityspec.ElasticInfrastructureCfg;
 import org.palladiosimulator.semanticelasticityspec.SemanticelasticityFactory;
 
 @OnEvent(when = ModelAdjustmentRequested.class, then = ModelAdjusted.class, cardinality = EventCardinality.SINGLE)
-public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
+public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension {
 
-    private static final Logger LOGGER = Logger.getLogger(SpdAdjustmentBehavior.class);
+    private static final Logger LOGGER = Logger.getLogger(ElasticityAdjustmentBehavior.class);
 
     private final boolean activated;
 
@@ -49,10 +49,10 @@ public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
     private final MonitorRepository monitorRepository;
 
     @Inject
-    public SpdAdjustmentBehavior(final Allocation allocation, final @Nullable MonitorRepository monitorRepository,
+    public ElasticityAdjustmentBehavior(final Allocation allocation, final @Nullable MonitorRepository monitorRepository,
             final @Nullable Configuration semanticConfiguration, final @Nullable ElasticitySpec elasticitySpec,
             final QVToReconfigurator reconfigurator,
-            @Named(SpdAdjustorModule.MAIN_QVTO) final Iterable<QVToModelTransformation> transformations) {
+            @Named(ElasticityAdjustorModule.MAIN_QVTO) final Iterable<QVToModelTransformation> transformations) {
         this.activated = monitorRepository != null && semanticConfiguration != null && elasticitySpec != null;
         this.allocation = allocation;
         this.semanticConfiguration = semanticConfiguration;

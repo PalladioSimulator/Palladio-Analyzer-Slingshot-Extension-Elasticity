@@ -8,6 +8,6 @@ import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
  *
  * @author Julijan Katic
  */
-public interface SpdBasedEvent extends DESEvent {
+public interface ElasticityBasedEvent extends DESEvent {
 
 }

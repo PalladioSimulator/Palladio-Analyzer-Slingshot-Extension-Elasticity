@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.RepeatedSimulationTimeReached;
-import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.SpdBasedEvent;
+import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.ElasticityBasedEvent;
 import org.palladiosimulator.analyzer.slingshot.common.annotations.Nullable;
 import org.palladiosimulator.analyzer.slingshot.core.extension.SimulationBehaviorExtension;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.Subscribe;
@@ -23,7 +23,7 @@ public class RepeatedSimulationTimeReachedRepeater implements SimulationBehavior
     }
 
     @Subscribe
-    public Result<SpdBasedEvent> onRepeatedSimulationTimeReached(
+    public Result<ElasticityBasedEvent> onRepeatedSimulationTimeReached(
             final RepeatedSimulationTimeReached repeatedSimulationTimeReached) {
         RepeatedSimulationTimeReached newRepeatedSimulationTimeReached = new RepeatedSimulationTimeReached(
                 repeatedSimulationTimeReached.getTargetGroupId(),

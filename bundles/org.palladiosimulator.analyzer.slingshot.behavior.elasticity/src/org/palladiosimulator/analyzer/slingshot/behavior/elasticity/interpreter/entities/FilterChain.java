@@ -28,7 +28,7 @@ public class FilterChain {
 
 	protected final List<Filter> filters = new ArrayList<>();
 	private final Consumer<Object> doOnDisregard;
-	private final SPDAdjustorState state;
+	private final ElasticitySpecAdjustorState state;
 	
 	protected Iterator<Filter> iterator;
 	private FilterResult latestResult;
@@ -40,7 +40,7 @@ public class FilterChain {
 	 * @param doOnDisregard A non-null delegator called when disregarded.
 	 * @see #FilterChain()
 	 */
-	public FilterChain(final Consumer<Object> doOnDisregard, final SPDAdjustorState state) {
+	public FilterChain(final Consumer<Object> doOnDisregard, final ElasticitySpecAdjustorState state) {
 		this.doOnDisregard = Objects.requireNonNull(doOnDisregard);
 		this.state = state;
 	}
@@ -49,7 +49,7 @@ public class FilterChain {
 	 * Constructs a new and empty filter chain with a default delegator
 	 * that does nothing.
 	 */
-	public FilterChain(final SPDAdjustorState state) {
+	public FilterChain(final ElasticitySpecAdjustorState state) {
 		this(message -> {}, state);
 	}
 

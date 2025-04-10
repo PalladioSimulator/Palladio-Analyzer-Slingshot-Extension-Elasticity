@@ -13,14 +13,14 @@ import org.palladiosimulator.elasticity.ElasticityPackage;
 import org.palladiosimulator.elasticity.ElasticitySpec;
 
 @Singleton
-public class SPDModelProvider implements ModelProvider<ElasticitySpec> {
+public class ElasticitySpecModelProvider implements ModelProvider<ElasticitySpec> {
 
-    private static final Logger LOGGER = Logger.getLogger(SPDModelProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(ElasticitySpecModelProvider.class);
 
     private final PCMResourceSetPartitionProvider provider;
 
     @Inject
-    public SPDModelProvider(final PCMResourceSetPartitionProvider provider) {
+    public ElasticitySpecModelProvider(final PCMResourceSetPartitionProvider provider) {
         this.provider = provider;
     }
 
@@ -31,7 +31,7 @@ public class SPDModelProvider implements ModelProvider<ElasticitySpec> {
         if (elasticitySpecs.size() == 0) {
             // It is important that for optional model, the corresponding classes using the model
             // should be able to handle nullable!
-            LOGGER.warn("An SPD model was not provided. Null will be returned");
+            LOGGER.warn("An Elasticity Spec model was not provided. Null will be returned");
             return null;
         }
         return (ElasticitySpec) elasticitySpecs.get(0);

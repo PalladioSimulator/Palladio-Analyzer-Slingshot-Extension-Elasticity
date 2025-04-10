@@ -19,7 +19,7 @@ public class SemanticModelLaunchConfig implements SystemBehaviorExtension {
 		tab.newModelDefinition()
 			 .fileName(FILE_NAME)
 			 .modelClass(Configuration.class)
-			 .label("SPD Semantic Configuration")
+			 .label("Elasticity Spec Semantic Configuration")
 			 .optional(true)
 			 .build();
 	}

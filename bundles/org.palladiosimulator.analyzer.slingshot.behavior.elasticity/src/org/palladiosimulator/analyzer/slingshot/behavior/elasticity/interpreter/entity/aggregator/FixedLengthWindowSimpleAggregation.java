@@ -24,7 +24,8 @@ import org.palladiosimulator.elasticity.triggers.AGGREGATIONMETHOD;
  * 
  * In addition, it offers a helper method {@link #getFromAggregationMethod(AGGREGATIONMETHOD)} to
  * get a desired window with a predefined aggregation function that matches the possible
- * aggregations specified in SPD {min, max, mean, median, sum}.
+ * aggregations specified in the Elasticity Spec Metamodel {min, max, mean, median, sum,
+ * rateofchange}.
  * 
  * For simulation, this implementation is not advised while it has to keep all measurements in the
  * queue and is inefficient and slow. Therefore, more efficient aggregations have to be employed,

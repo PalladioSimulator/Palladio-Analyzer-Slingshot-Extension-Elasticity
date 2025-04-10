@@ -12,7 +12,7 @@ import org.palladiosimulator.elasticity.ScalingPolicy;
  * 
  * @author Julijan Katic
  */
-public final class ModelAdjustmentRequested extends AbstractSimulationEvent implements SpdBasedEvent {
+public final class ModelAdjustmentRequested extends AbstractSimulationEvent implements ElasticityBasedEvent {
 
     private final ScalingPolicy scalingPolicy;
 

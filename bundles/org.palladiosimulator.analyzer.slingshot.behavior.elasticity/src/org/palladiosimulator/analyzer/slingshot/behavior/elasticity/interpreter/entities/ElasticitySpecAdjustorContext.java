@@ -25,7 +25,8 @@ import org.palladiosimulator.elasticity.triggers.ScalingTrigger;
 
 /**
  *
- * For each {@code SPDAdjustorContext} there must be at most one Subscriber per EventType.
+ * For each {@code ElasticitySpecAdjustorContext} there must be at most one Subscriber per
+ * EventType.
  *
  * This is mostly relevant for {@link ComposedTrigger}s. For {@link BaseTrigger}, it is not
  * relevant, there is always only one Subscriber for those. However a {@link ComposedTrigger} may
@@ -35,24 +36,24 @@ import org.palladiosimulator.elasticity.triggers.ScalingTrigger;
  *
  * @author Julijan Katic, Sarah Stieß
  */
-public final class SPDAdjustorContext {
+public final class ElasticitySpecAdjustorContext {
 
-    private static final Logger LOGGER = Logger.getLogger(SPDAdjustorContext.class);
+    private static final Logger LOGGER = Logger.getLogger(ElasticitySpecAdjustorContext.class);
 
     private final FilterChain filterChain;
     private final ScalingPolicy scalingPolicy;
     private final Set<Subscriber<? extends DESEvent>> associatedHandlers;
 
-    private SPDAdjustorState state;
-    private final SPDAdjustorState previousState;
+    private ElasticitySpecAdjustorState state;
+    private final ElasticitySpecAdjustorState previousState;
 
-    public SPDAdjustorContext(final ScalingPolicy policy, final Filter triggerChecker,
+    public ElasticitySpecAdjustorContext(final ScalingPolicy policy, final Filter triggerChecker,
             final List<Subscriber.Builder<? extends DESEvent>> associatedHandlers,
             final TargetGroupState targetGroupState) {
         this.scalingPolicy = policy;
 
-        state = new SPDAdjustorState(policy, targetGroupState);
-        previousState = new SPDAdjustorState(policy, targetGroupState);
+        state = new ElasticitySpecAdjustorState(policy, targetGroupState);
+        previousState = new ElasticitySpecAdjustorState(policy, targetGroupState);
 
         this.filterChain = new FilterChain(this::doOnDisregard, state);
 
@@ -126,7 +127,7 @@ public final class SPDAdjustorContext {
         if (this == other) {
             return true;
         }
-        if (other instanceof final SPDAdjustorContext otherContext) {
+        if (other instanceof final ElasticitySpecAdjustorContext otherContext) {
             return Objects.equals(this.scalingPolicy.getId(), otherContext.scalingPolicy.getId());
         }
         return false;

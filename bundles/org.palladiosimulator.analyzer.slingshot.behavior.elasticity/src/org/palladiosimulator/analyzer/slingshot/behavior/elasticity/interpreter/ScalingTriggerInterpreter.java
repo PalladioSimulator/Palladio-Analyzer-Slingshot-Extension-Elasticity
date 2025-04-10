@@ -3,7 +3,7 @@ package org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter
 import java.util.ArrayList;
 import java.util.List;
 
-import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.SpdBasedEvent;
+import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data.ElasticityBasedEvent;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.Filter;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.LogicalANDComboundFilter;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entities.LogicalORCompoundFilter;
@@ -50,7 +50,7 @@ public class ScalingTriggerInterpreter extends TriggersSwitch<ScalingTriggerInte
     static final class InterpretationResult {
 
         private Filter triggerChecker;
-        private final List<SpdBasedEvent> eventsToSchedule = new ArrayList<>();
+        private final List<ElasticityBasedEvent> eventsToSchedule = new ArrayList<>();
         private final List<Subscriber.Builder<? extends DESEvent>> eventsToListen = new ArrayList<>();
 
         public InterpretationResult triggerChecker(final Filter triggerChecker) {
@@ -58,7 +58,7 @@ public class ScalingTriggerInterpreter extends TriggersSwitch<ScalingTriggerInte
             return this;
         }
 
-        public InterpretationResult scheduleEvent(final SpdBasedEvent event) {
+        public InterpretationResult scheduleEvent(final ElasticityBasedEvent event) {
             this.eventsToSchedule.add(event);
             return this;
         }
@@ -72,7 +72,7 @@ public class ScalingTriggerInterpreter extends TriggersSwitch<ScalingTriggerInte
             return this.triggerChecker;
         }
 
-        public List<SpdBasedEvent> getEventsToSchedule() {
+        public List<ElasticityBasedEvent> getEventsToSchedule() {
             return this.eventsToSchedule;
         }
 
