@@ -3,7 +3,7 @@
 		
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.palladiosimulator.analyzer.slingshot.behavior.spd</groupId>
+		<groupId>org.palladiosimulator.analyzer.slingshot.behavior.elasticity</groupId>
 		<artifactId>parent</artifactId>	
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
@@ -11,9 +11,9 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-		<module>org.palladiosimulator.analyzer.slingshot.behavior.spd</module>
-		<module>org.palladiosimulator.analyzer.slingshot.behavior.spd.adjustment</module>
-		<module>org.palladiosimulator.analyzer.slingshot.behavior.spd.data</module>
+		<module>org.palladiosimulator.analyzer.slingshot.behavior.elasticity</module>
+		<module>org.palladiosimulator.analyzer.slingshot.behavior.elasticity.adjustment</module>
+		<module>org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data</module>
 	</modules>
 	
 </project>
