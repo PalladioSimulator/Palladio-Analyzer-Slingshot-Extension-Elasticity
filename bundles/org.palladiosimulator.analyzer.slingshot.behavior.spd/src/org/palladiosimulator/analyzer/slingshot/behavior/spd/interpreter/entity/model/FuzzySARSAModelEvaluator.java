@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.ModelInterpreter;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.NotEmittableException;
-import org.palladiosimulator.spd.models.FuzzySARSAModel;
+import org.palladiosimulator.elasticity.models.FuzzySARSAModel;
 
 public class FuzzySARSAModelEvaluator extends AbstractFuzzyLearningModelEvaluator {
     private static final Logger LOGGER = Logger.getLogger(FuzzySARSAModelEvaluator.class);

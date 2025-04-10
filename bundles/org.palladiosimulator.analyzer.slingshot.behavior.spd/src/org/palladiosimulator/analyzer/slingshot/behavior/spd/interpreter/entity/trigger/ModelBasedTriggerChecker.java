@@ -11,7 +11,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.
 import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.core.events.SimulationFinished;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
 
 /**
  * This class listens to events of the type {@link RepeatedSimulationTimeReached} and

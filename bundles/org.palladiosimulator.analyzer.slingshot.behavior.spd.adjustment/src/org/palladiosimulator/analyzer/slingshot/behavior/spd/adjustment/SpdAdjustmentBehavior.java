@@ -23,17 +23,16 @@ import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.Subscrib
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcontract.EventCardinality;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcontract.OnEvent;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.returntypes.Result;
+import org.palladiosimulator.elasticity.ElasticitySpec;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
 import org.palladiosimulator.monitorrepository.MonitorRepository;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
-import org.palladiosimulator.semanticspd.Configuration;
-import org.palladiosimulator.semanticspd.ElasticInfrastructureCfg;
-import org.palladiosimulator.semanticspd.SemanticspdFactory;
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
-import org.palladiosimulator.spd.SPD;
-import org.palladiosimulator.spd.ScalingPolicy;
+import org.palladiosimulator.semanticelasticityspec.Configuration;
+import org.palladiosimulator.semanticelasticityspec.ElasticInfrastructureCfg;
+import org.palladiosimulator.semanticelasticityspec.SemanticelasticityFactory;
 
 @OnEvent(when = ModelAdjustmentRequested.class, then = ModelAdjusted.class, cardinality = EventCardinality.SINGLE)
 public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
@@ -42,7 +41,7 @@ public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
 
     private final boolean activated;
 
-    private final SPD spd;
+    private final ElasticitySpec elasticitySpec;
     private final QVToReconfigurator reconfigurator;
     private final Iterable<QVToModelTransformation> transformations;
     private final Allocation allocation;
@@ -51,13 +50,13 @@ public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
 
     @Inject
     public SpdAdjustmentBehavior(final Allocation allocation, final @Nullable MonitorRepository monitorRepository,
-            final @Nullable Configuration semanticConfiguration, final @Nullable SPD spd,
+            final @Nullable Configuration semanticConfiguration, final @Nullable ElasticitySpec elasticitySpec,
             final QVToReconfigurator reconfigurator,
             @Named(SpdAdjustorModule.MAIN_QVTO) final Iterable<QVToModelTransformation> transformations) {
-        this.activated = monitorRepository != null && semanticConfiguration != null && spd != null;
+        this.activated = monitorRepository != null && semanticConfiguration != null && elasticitySpec != null;
         this.allocation = allocation;
         this.semanticConfiguration = semanticConfiguration;
-        this.spd = spd;
+        this.elasticitySpec = elasticitySpec;
         this.reconfigurator = reconfigurator;
         this.transformations = transformations;
         this.monitorRepository = monitorRepository;
@@ -201,7 +200,7 @@ public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
      */
 
     private ElasticInfrastructureCfg createElasticInfrastructureCfg(final ResourceEnvironment environment) {
-        final ElasticInfrastructureCfg targetGroupConfig = SemanticspdFactory.eINSTANCE
+        final ElasticInfrastructureCfg targetGroupConfig = SemanticelasticityFactory.eINSTANCE
             .createElasticInfrastructureCfg();
         targetGroupConfig.setResourceEnvironment(environment);
         targetGroupConfig.setUnit(environment.getResourceContainer_ResourceEnvironment()
@@ -218,10 +217,10 @@ public class SpdAdjustmentBehavior implements SimulationBehaviorExtension {
      */
     private Configuration createConfiguration(final ModelAdjustmentRequested event,
             final ResourceEnvironment environment) {
-        final Configuration configuration = SemanticspdFactory.eINSTANCE.createConfiguration();
+        final Configuration configuration = SemanticelasticityFactory.eINSTANCE.createConfiguration();
         configuration.setAllocation(allocation);
         configuration.setResourceEnvironment(environment);
-        configuration.setSpd(spd);
+        configuration.setElasticitySpec(elasticitySpec);
         configuration.setSystem(allocation.getSystem_Allocation());
         configuration.setRepository(allocation.getSystem_Allocation()
             .getAssemblyContexts__ComposedStructure()

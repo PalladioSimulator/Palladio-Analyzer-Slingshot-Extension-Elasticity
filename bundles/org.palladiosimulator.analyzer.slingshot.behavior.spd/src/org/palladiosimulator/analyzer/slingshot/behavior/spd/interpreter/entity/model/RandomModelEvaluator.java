@@ -4,7 +4,7 @@ import java.util.PrimitiveIterator.OfInt;
 import java.util.Random;
 
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
-import org.palladiosimulator.spd.models.RandomModel;
+import org.palladiosimulator.elasticity.models.RandomModel;
 
 public class RandomModelEvaluator extends ModelEvaluator {
 

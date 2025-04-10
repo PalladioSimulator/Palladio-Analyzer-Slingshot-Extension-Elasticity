@@ -10,12 +10,12 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entitie
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.LogicalXORCompoundFilter;
 import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.entity.Subscriber;
-import org.palladiosimulator.spd.ScalingPolicy;
-import org.palladiosimulator.spd.triggers.ComposedTrigger;
-import org.palladiosimulator.spd.triggers.LogicalOperator;
-import org.palladiosimulator.spd.triggers.SimpleFireOnTrend;
-import org.palladiosimulator.spd.triggers.SimpleFireOnValue;
-import org.palladiosimulator.spd.triggers.util.TriggersSwitch;
+import org.palladiosimulator.elasticity.ScalingPolicy;
+import org.palladiosimulator.elasticity.triggers.ComposedTrigger;
+import org.palladiosimulator.elasticity.triggers.LogicalOperator;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnTrend;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnValue;
+import org.palladiosimulator.elasticity.triggers.util.TriggersSwitch;
 
 public class ScalingTriggerInterpreter extends TriggersSwitch<ScalingTriggerInterpreter.InterpretationResult> {
 

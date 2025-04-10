@@ -7,7 +7,7 @@ import org.palladiosimulator.pcmmeasuringpoint.OperationReference;
 import org.palladiosimulator.pcmmeasuringpoint.ResourceContainerMeasuringPoint;
 import org.palladiosimulator.pcmmeasuringpoint.ResourceEnvironmentMeasuringPoint;
 import org.palladiosimulator.pcmmeasuringpoint.util.PcmmeasuringpointSwitch;
-import org.palladiosimulator.spd.targets.TargetGroup;
+import org.palladiosimulator.elasticity.targets.TargetGroup;
 
 /**
  * A switch based approach of checking whether the measuring point is inside the

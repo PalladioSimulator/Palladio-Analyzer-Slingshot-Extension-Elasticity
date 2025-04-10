@@ -2,7 +2,7 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity
 
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterObjectWrapper;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterResult;
-import org.palladiosimulator.spd.constraints.policy.CooldownConstraint;
+import org.palladiosimulator.elasticity.constraints.policy.CooldownConstraint;
 
 
 /**

@@ -3,7 +3,7 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity
 import org.apache.log4j.Logger;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.ModelInterpreter;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.NotEmittableException;
-import org.palladiosimulator.spd.models.FuzzyQLearningModel;
+import org.palladiosimulator.elasticity.models.FuzzyQLearningModel;
 
 public class FuzzyQLearningModelEvaluator extends AbstractFuzzyLearningModelEvaluator {
 

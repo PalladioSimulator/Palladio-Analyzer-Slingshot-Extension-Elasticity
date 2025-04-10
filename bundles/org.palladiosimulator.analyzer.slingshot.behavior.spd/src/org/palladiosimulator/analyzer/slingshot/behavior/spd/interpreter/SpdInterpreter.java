@@ -18,34 +18,35 @@ import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.core.events.SimulationFinished;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.entity.Subscriber;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
-import org.palladiosimulator.spd.SPD;
-import org.palladiosimulator.spd.TriggerBasedScalingPolicy;
-import org.palladiosimulator.spd.constraints.target.TargetGroupSizeConstraint;
-import org.palladiosimulator.spd.models.BaseModel;
-import org.palladiosimulator.spd.targets.TargetGroup;
-import org.palladiosimulator.spd.util.SpdSwitch;
+import org.palladiosimulator.elasticity.ElasticitySpec;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
+import org.palladiosimulator.elasticity.TriggerBasedScalingPolicy;
+import org.palladiosimulator.elasticity.constraints.target.TargetGroupSizeConstraint;
+import org.palladiosimulator.elasticity.models.BaseModel;
+import org.palladiosimulator.elasticity.targets.TargetGroup;
+import org.palladiosimulator.elasticity.util.ElasticitySwitch;
 
 /**
  * A simple SPD interpreter that will build a {@link FilterChain} for each scaling policy.
  *
  * @author Julijan Katic
  */
-class SpdInterpreter extends SpdSwitch<SpdInterpreter.InterpretationResult> {
+class SpdInterpreter extends ElasticitySwitch<SpdInterpreter.InterpretationResult> {
 
     private static final Logger LOGGER = Logger.getLogger(SpdInterpreter.class);
 
     private final Map<TargetGroup, TargetGroupState> targetGroupStates = new HashMap<>();
 
     @Override
-    public InterpretationResult caseSPD(final SPD spd) {
-        LOGGER.debug("Interpreting SPD Model " + spd.getEntityName() + "[" + spd.getId() + "]");
+    public InterpretationResult caseElasticitySpec(final ElasticitySpec elasticitySpec) {
+        LOGGER.debug("Interpreting Elasticity Spec Model " + elasticitySpec.getEntityName() + "["
+                + elasticitySpec.getId() + "]");
 
-        spd.getTargetGroups()
+        elasticitySpec.getTargetGroups()
             .stream()
             .forEach(target -> this.targetGroupStates.put(target, new TargetGroupState(target)));
 
-        return spd.getScalingPolicies()
+        return elasticitySpec.getScalingPolicies()
             .stream()
             .map(this::doSwitch)
             .reduce(InterpretationResult::add)

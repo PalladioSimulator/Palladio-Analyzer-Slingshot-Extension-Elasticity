@@ -3,12 +3,12 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity
 import java.util.Set;
 
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.Filter;
-import org.palladiosimulator.spd.triggers.BaseTrigger;
-import org.palladiosimulator.spd.triggers.SimpleFireOnTrend;
-import org.palladiosimulator.spd.triggers.SimpleFireOnValue;
-import org.palladiosimulator.spd.triggers.expectations.ExpectedPrimitive;
-import org.palladiosimulator.spd.triggers.expectations.NoExpectation;
-import org.palladiosimulator.spd.triggers.stimuli.Stimulus;
+import org.palladiosimulator.elasticity.triggers.BaseTrigger;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnTrend;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnValue;
+import org.palladiosimulator.elasticity.triggers.expectations.ExpectedPrimitive;
+import org.palladiosimulator.elasticity.triggers.expectations.NoExpectation;
+import org.palladiosimulator.elasticity.triggers.stimuli.Stimulus;
 
 import com.google.common.base.Preconditions;
 

@@ -12,9 +12,9 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.NotEmittableException;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
-import org.palladiosimulator.spd.models.FuzzyLearningModel;
-import org.palladiosimulator.spd.models.InitializationType;
-import org.palladiosimulator.spd.triggers.stimuli.OperationResponseTime;
+import org.palladiosimulator.elasticity.models.FuzzyLearningModel;
+import org.palladiosimulator.elasticity.models.InitializationType;
+import org.palladiosimulator.elasticity.triggers.stimuli.OperationResponseTime;
 
 public abstract class AbstractFuzzyLearningModelEvaluator extends LearningBasedModelEvaluator {
 

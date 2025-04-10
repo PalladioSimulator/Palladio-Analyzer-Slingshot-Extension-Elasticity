@@ -1,6 +1,6 @@
 package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator;
 
-import org.palladiosimulator.spd.triggers.stimuli.ManagedElementsStateStimulus;
+import org.palladiosimulator.elasticity.triggers.stimuli.ManagedElementsStateStimulus;
 
 /**
  * The WindowAggregation interface defines the contract of how aggregations are

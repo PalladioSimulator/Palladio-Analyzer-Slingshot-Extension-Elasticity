@@ -3,9 +3,9 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entiti
 import java.util.ArrayList;
 import java.util.List;
 
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
-import org.palladiosimulator.spd.ScalingPolicy;
-import org.palladiosimulator.spd.targets.TargetGroup;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
+import org.palladiosimulator.elasticity.ScalingPolicy;
+import org.palladiosimulator.elasticity.targets.TargetGroup;
 
 import com.google.common.collect.Iterables;
 

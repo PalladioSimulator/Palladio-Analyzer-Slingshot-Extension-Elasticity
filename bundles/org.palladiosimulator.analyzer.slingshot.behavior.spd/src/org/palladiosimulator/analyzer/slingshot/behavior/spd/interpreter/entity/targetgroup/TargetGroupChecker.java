@@ -10,7 +10,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entitie
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.utils.MeasuringPointInsideTargetGroup;
 import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
-import org.palladiosimulator.spd.targets.TargetGroup;
+import org.palladiosimulator.elasticity.targets.TargetGroup;
 import org.palladiosimulator.spdmeasuringpoint.ElasticInfrastructureMeasuringPoint;
 
 public class TargetGroupChecker implements Filter {

@@ -6,8 +6,8 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.data.ModelAdjustmen
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.Filter;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterObjectWrapper;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterResult;
-import org.palladiosimulator.spd.ScalingPolicy;
-import org.palladiosimulator.spd.constraints.policy.CooldownConstraint;
+import org.palladiosimulator.elasticity.ScalingPolicy;
+import org.palladiosimulator.elasticity.constraints.policy.CooldownConstraint;
 
 /**
  * This filter creates an {@link ModelAdjustmentRequested} event at the end of the filter chain,

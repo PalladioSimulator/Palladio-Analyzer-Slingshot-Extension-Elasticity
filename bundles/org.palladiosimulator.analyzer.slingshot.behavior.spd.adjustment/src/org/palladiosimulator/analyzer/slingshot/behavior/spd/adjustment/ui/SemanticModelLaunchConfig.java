@@ -6,7 +6,7 @@ import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcon
 import org.palladiosimulator.analyzer.slingshot.ui.events.ArchitectureModelsTabBuilderStarted;
 import org.palladiosimulator.analyzer.slingshot.workflow.events.WorkflowLaunchConfigurationBuilderInitialized;
 
-import org.palladiosimulator.semanticspd.Configuration;
+import org.palladiosimulator.semanticelasticityspec.Configuration;
 
 @OnEvent(when = ArchitectureModelsTabBuilderStarted.class)
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)

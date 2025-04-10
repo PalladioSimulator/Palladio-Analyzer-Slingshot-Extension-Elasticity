@@ -2,7 +2,7 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity
 
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterObjectWrapper;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterResult;
-import org.palladiosimulator.spd.constraints.policy.IntervalConstraint;
+import org.palladiosimulator.elasticity.constraints.policy.IntervalConstraint;
 
 public class IntervalConstraintFilter extends AbstractConstraintFilter<IntervalConstraint> {
 

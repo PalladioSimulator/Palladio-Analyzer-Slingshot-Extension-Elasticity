@@ -15,13 +15,13 @@ import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.entity.EventHandler;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.entity.Subscriber;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.returntypes.Result;
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
-import org.palladiosimulator.spd.ScalingPolicy;
-import org.palladiosimulator.spd.constraints.policy.IntervalConstraint;
-import org.palladiosimulator.spd.constraints.target.ThrashingConstraint;
-import org.palladiosimulator.spd.triggers.BaseTrigger;
-import org.palladiosimulator.spd.triggers.ComposedTrigger;
-import org.palladiosimulator.spd.triggers.ScalingTrigger;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
+import org.palladiosimulator.elasticity.ScalingPolicy;
+import org.palladiosimulator.elasticity.constraints.policy.IntervalConstraint;
+import org.palladiosimulator.elasticity.constraints.target.ThrashingConstraint;
+import org.palladiosimulator.elasticity.triggers.BaseTrigger;
+import org.palladiosimulator.elasticity.triggers.ComposedTrigger;
+import org.palladiosimulator.elasticity.triggers.ScalingTrigger;
 
 /**
  *

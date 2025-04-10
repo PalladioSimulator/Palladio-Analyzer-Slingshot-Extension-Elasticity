@@ -8,7 +8,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.adjustment.qvto.QVT
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.adjustment.ui.SemanticModelLaunchConfig;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.adjustment.ui.SemanticModelProvider;
 import org.palladiosimulator.analyzer.slingshot.core.extension.AbstractSlingshotExtension;
-import org.palladiosimulator.semanticspd.Configuration;
+import org.palladiosimulator.semanticelasticityspec.Configuration;
 
 import com.google.inject.Provides;
 

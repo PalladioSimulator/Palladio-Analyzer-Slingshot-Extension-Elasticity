@@ -3,7 +3,7 @@ package org.palladiosimulator.analyzer.slingshot.behavior.spd.data;
 import java.util.Objects;
 
 import org.palladiosimulator.analyzer.slingshot.common.events.AbstractSimulationEvent;
-import org.palladiosimulator.spd.ScalingPolicy;
+import org.palladiosimulator.elasticity.ScalingPolicy;
 
 /**
  * Tells that a certain adjustment to the PCM model is requested. An adjustor module can then

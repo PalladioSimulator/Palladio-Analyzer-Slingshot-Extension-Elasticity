@@ -11,7 +11,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.functions.MinAggregation;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.functions.RateOfChangeAggregation;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.aggregator.functions.SumAggregation;
-import org.palladiosimulator.spd.triggers.AGGREGATIONMETHOD;
+import org.palladiosimulator.elasticity.triggers.AGGREGATIONMETHOD;
 
 /**
  * A window-based aggregator with a window size of the last {@code windowSize} measurements.

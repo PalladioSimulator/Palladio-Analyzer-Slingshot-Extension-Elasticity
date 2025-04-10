@@ -11,15 +11,15 @@ import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.
 import org.palladiosimulator.analyzer.slingshot.monitor.data.entities.SlingshotMeasuringValue;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
+import org.palladiosimulator.elasticity.triggers.AGGREGATIONMETHOD;
+import org.palladiosimulator.elasticity.triggers.stimuli.ManagedElementsStateStimulus;
+import org.palladiosimulator.elasticity.triggers.stimuli.NumberOfElements;
+import org.palladiosimulator.elasticity.triggers.stimuli.OperationResponseTime;
+import org.palladiosimulator.elasticity.triggers.stimuli.QueueLength;
+import org.palladiosimulator.elasticity.triggers.stimuli.Stimulus;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcmmeasuringpoint.OperationReference;
-import org.palladiosimulator.spd.triggers.AGGREGATIONMETHOD;
-import org.palladiosimulator.spd.triggers.stimuli.ManagedElementsStateStimulus;
-import org.palladiosimulator.spd.triggers.stimuli.NumberOfElements;
-import org.palladiosimulator.spd.triggers.stimuli.OperationResponseTime;
-import org.palladiosimulator.spd.triggers.stimuli.QueueLength;
-import org.palladiosimulator.spd.triggers.stimuli.Stimulus;
 
 /**
  * This class implements the base functionality for forwarding the latest measurement for

@@ -7,15 +7,15 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterObjectWrapper;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.FilterResult;
 import org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entities.TargetGroupState;
-import org.palladiosimulator.spd.ModelBasedScalingPolicy;
-import org.palladiosimulator.spd.ScalingPolicy;
-import org.palladiosimulator.spd.TriggerBasedScalingPolicy;
-import org.palladiosimulator.spd.adjustments.AbsoluteAdjustment;
-import org.palladiosimulator.spd.adjustments.AdjustmentType;
-import org.palladiosimulator.spd.adjustments.RelativeAdjustment;
-import org.palladiosimulator.spd.adjustments.StepAdjustment;
-import org.palladiosimulator.spd.constraints.target.ThrashingConstraint;
-import org.palladiosimulator.spd.models.LearningBasedModel;
+import org.palladiosimulator.elasticity.ModelBasedScalingPolicy;
+import org.palladiosimulator.elasticity.ScalingPolicy;
+import org.palladiosimulator.elasticity.TriggerBasedScalingPolicy;
+import org.palladiosimulator.elasticity.adjustments.AbsoluteAdjustment;
+import org.palladiosimulator.elasticity.adjustments.AdjustmentType;
+import org.palladiosimulator.elasticity.adjustments.RelativeAdjustment;
+import org.palladiosimulator.elasticity.adjustments.StepAdjustment;
+import org.palladiosimulator.elasticity.constraints.target.ThrashingConstraint;
+import org.palladiosimulator.elasticity.models.LearningBasedModel;
 
 /**
  * The thrashing constraint filter makes sure that there is a certain amount of time passed since

@@ -1,9 +1,9 @@
 package org.palladiosimulator.analyzer.slingshot.behavior.spd.interpreter.entity.trigger;
 
-import org.palladiosimulator.spd.triggers.BaseTrigger;
-import org.palladiosimulator.spd.triggers.SimpleFireOnTrend;
-import org.palladiosimulator.spd.triggers.SimpleFireOnValue;
-import org.palladiosimulator.spd.triggers.expectations.ExpectedValue;
+import org.palladiosimulator.elasticity.triggers.BaseTrigger;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnTrend;
+import org.palladiosimulator.elasticity.triggers.SimpleFireOnValue;
+import org.palladiosimulator.elasticity.triggers.expectations.ExpectedValue;
 
 /**
  * Creates a comparator based on the triggers {@link SimpleFireOnValue} or

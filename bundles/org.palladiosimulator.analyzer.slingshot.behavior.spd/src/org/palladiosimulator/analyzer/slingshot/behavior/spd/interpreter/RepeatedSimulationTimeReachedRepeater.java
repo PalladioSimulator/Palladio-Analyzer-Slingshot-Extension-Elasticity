@@ -12,14 +12,14 @@ import org.palladiosimulator.analyzer.slingshot.core.extension.SimulationBehavio
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.Subscribe;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcontract.OnEvent;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.returntypes.Result;
-import org.palladiosimulator.spd.SPD;
+import org.palladiosimulator.elasticity.ElasticitySpec;
 
 @OnEvent(when = RepeatedSimulationTimeReached.class, then = RepeatedSimulationTimeReached.class, cardinality = SINGLE)
 public class RepeatedSimulationTimeReachedRepeater implements SimulationBehaviorExtension {
     private static final Logger LOGGER = Logger.getLogger(RepeatedSimulationTimeReachedRepeater.class);
 
     @Inject
-    public RepeatedSimulationTimeReachedRepeater(@Nullable final SPD spdModel) {
+    public RepeatedSimulationTimeReachedRepeater(@Nullable final ElasticitySpec elasticitySpecModel) {
     }
 
     @Subscribe
