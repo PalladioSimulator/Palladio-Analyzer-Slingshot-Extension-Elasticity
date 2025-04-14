@@ -11,8 +11,8 @@ import org.palladiosimulator.elasticity.ElasticitySpec;
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)
 public class ElasticitySpecModelConfiguration implements SystemBehaviorExtension {
 
-    public static final String FILE_NAME = "spd";
-    public static final String[] FILE_EXTENSIONS = new String[] { "*.spd" };
+    public static final String FILE_NAME = "elasticity";
+    public static final String[] FILE_EXTENSIONS = new String[] { "*.elasticity" };
 
     @Subscribe
     public void onArchitectureModelsTab(final ArchitectureModelsTabBuilderStarted event) {
@@ -20,7 +20,7 @@ public class ElasticitySpecModelConfiguration implements SystemBehaviorExtension
             .fileName(FILE_NAME)
             .fileExtensions(FILE_EXTENSIONS)
             .modelClass(ElasticitySpec.class)
-            .label("Scaling Policy Definition")
+            .label("Elasticity Specification")
             .optional(true)
             .build();
     }

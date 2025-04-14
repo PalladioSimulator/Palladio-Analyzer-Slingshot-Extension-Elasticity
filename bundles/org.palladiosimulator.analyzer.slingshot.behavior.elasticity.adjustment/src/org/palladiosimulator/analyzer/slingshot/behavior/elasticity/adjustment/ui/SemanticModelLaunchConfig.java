@@ -5,30 +5,27 @@ import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.Subscrib
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcontract.OnEvent;
 import org.palladiosimulator.analyzer.slingshot.ui.events.ArchitectureModelsTabBuilderStarted;
 import org.palladiosimulator.analyzer.slingshot.workflow.events.WorkflowLaunchConfigurationBuilderInitialized;
-
 import org.palladiosimulator.semanticelasticityspec.Configuration;
 
 @OnEvent(when = ArchitectureModelsTabBuilderStarted.class)
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)
 public class SemanticModelLaunchConfig implements SystemBehaviorExtension {
 
-	private static final String FILE_NAME = "semanticspd";
-	
-	@Subscribe
-	public void onArchitectureModelsTab(final ArchitectureModelsTabBuilderStarted tab) {
-		tab.newModelDefinition()
-			 .fileName(FILE_NAME)
-			 .modelClass(Configuration.class)
-			 .label("Elasticity Spec Semantic Configuration")
-			 .optional(true)
-			 .build();
-	}
-	
-	@Subscribe
-	public void onWorkflowConfiguration(final WorkflowLaunchConfigurationBuilderInitialized init) {
-		init.getConfiguration(FILE_NAME, 
-				"semanticspd", 
-				(conf, model) -> conf.addOtherModelFile((String) model));
-	}
-	
+    private static final String FILE_NAME = "semanticelasticity";
+
+    @Subscribe
+    public void onArchitectureModelsTab(final ArchitectureModelsTabBuilderStarted tab) {
+        tab.newModelDefinition()
+            .fileName(FILE_NAME)
+            .modelClass(Configuration.class)
+            .label("Elasticity Spec Semantic Configuration")
+            .optional(true)
+            .build();
+    }
+
+    @Subscribe
+    public void onWorkflowConfiguration(final WorkflowLaunchConfigurationBuilderInitialized init) {
+        init.getConfiguration(FILE_NAME, "semanticelasticity", (conf, model) -> conf.addOtherModelFile((String) model));
+    }
+
 }
