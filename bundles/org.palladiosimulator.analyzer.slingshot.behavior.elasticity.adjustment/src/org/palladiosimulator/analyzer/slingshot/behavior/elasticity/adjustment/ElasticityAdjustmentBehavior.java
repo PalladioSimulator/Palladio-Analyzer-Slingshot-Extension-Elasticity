@@ -217,15 +217,6 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
     private ScalablePCMGroups createConfiguration(final ModelAdjustmentRequested event,
             final ResourceEnvironment environment) {
         final ScalablePCMGroups scalablePCMGroups = scalablepcmgroupsFactory.eINSTANCE.createScalablePCMGroups();
-        scalablePCMGroups.setAllocation(allocation);
-        scalablePCMGroups.setResourceEnvironment(environment);
-        scalablePCMGroups.setElasticitySpec(elasticitySpec);
-        scalablePCMGroups.setSystem(allocation.getSystem_Allocation());
-        scalablePCMGroups.setRepository(allocation.getSystem_Allocation()
-            .getAssemblyContexts__ComposedStructure()
-            .get(0)
-            .getEncapsulatedComponent__AssemblyContext()
-            .getRepository__RepositoryComponent()); // TODO: What to do here?
         scalablePCMGroups.setEnactedPolicy(event.getScalingPolicy());
 
         final InfrastructureGroup targetGroupConfig = createElasticInfrastructureCfg(environment);
