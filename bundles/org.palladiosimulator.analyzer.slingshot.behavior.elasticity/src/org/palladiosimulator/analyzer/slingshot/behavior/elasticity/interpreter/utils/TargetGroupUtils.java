@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import org.palladiosimulator.analyzer.slingshot.core.Slingshot;
 import org.palladiosimulator.elasticity.targets.CompetingConsumersGroup;
-import org.palladiosimulator.elasticity.targets.ElasticInfrastructure;
 import org.palladiosimulator.elasticity.targets.ServiceGroup;
 import org.palladiosimulator.elasticity.targets.TargetGroup;
 import org.palladiosimulator.pcm.allocation.Allocation;
@@ -34,18 +33,18 @@ public class TargetGroupUtils {
         .getInstance(ScalablePCMGroups.class);
 
     /**
-     * Checks whether the container is part of the elastic infrastructure.
+     * Checks whether the container is part of the infrastructure group.
      * 
      * @param container
      *            The resource container to check
      * @param targetGroup
-     *            The elastic infrastructure referencing a resource environment.
+     *            The infrastructure group referencing a resource environment.
      * @return true iff the container is part of the environment.
      */
-    public static boolean isContainerInElasticInfrastructure(final ResourceContainer container,
-            final ElasticInfrastructure targetGroup) {
+    public static boolean isContainerInInfrastructureGroup(final ResourceContainer container,
+            final org.palladiosimulator.elasticity.targets.InfrastructureGroup targetGroup) {
 
-        List<InfrastructureGroup> elasticInfraCfgs = scalablePCMGroups.getTargetCfgs()
+        List<InfrastructureGroup> infrastructureGroups = scalablePCMGroups.getTargetCfgs()
             .stream()
             .filter(cfg -> cfg instanceof InfrastructureGroup c)
             .map(c -> (InfrastructureGroup) c)
@@ -55,9 +54,9 @@ public class TargetGroupUtils {
                     .getId()))
             .collect(Collectors.toList());
 
-        assert elasticInfraCfgs.size() == 1;
+        assert infrastructureGroups.size() == 1;
 
-        return elasticInfraCfgs.get(0)
+        return infrastructureGroups.get(0)
             .getElements()
             .stream()
             .anyMatch(rc -> rc.getId()
@@ -112,12 +111,12 @@ public class TargetGroupUtils {
      * @return true if the container is part of the target group.
      * 
      * @see #isContainerInCompetingConsumersGroup(ResourceContainer, CompetingConsumersGroup)
-     * @see #isContainerInElasticInfrastructure(ResourceContainer, ElasticInfrastructure)
+     * @see #isContainerInInfrastructureGroup(ResourceContainer, InfrastructureGroup)
      * @see #isContainerInServiceGroup(ResourceContainer, ServiceGroup)
      */
     public static boolean isContainerInTargetGroup(final ResourceContainer container, final TargetGroup targetGroup) {
-        if (targetGroup instanceof final ElasticInfrastructure elasticInfrastructure) {
-            return isContainerInElasticInfrastructure(container, elasticInfrastructure);
+        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
+            return isContainerInInfrastructureGroup(container, infrastructureGroup);
         }
         if (targetGroup instanceof final ServiceGroup serviceGroup) {
             return isContainerInServiceGroup(container, serviceGroup);
@@ -134,8 +133,9 @@ public class TargetGroupUtils {
      * group is of type {@link ServiceGroup} or {@link CompetingConsumersGroup}. The assembly
      * contexts to consider are the unit assemblies, as well as the replicated assemblies.
      * 
-     * In case of the {@link ElasticInfrastructure}, it checks whether the context is referencing a
-     * resource container is part of the resource environment referenced by the target group.
+     * In case of the {@link org.palladiosimulator.elasticity.targets.InfrastructureGroup}, it
+     * checks whether the context is referencing a resource container is part of the resource
+     * environment referenced by the target group.
      * 
      * @param context
      *            The assembly context to check.
@@ -149,8 +149,8 @@ public class TargetGroupUtils {
             return getAllContextsToConsider(serviceGroup).anyMatch(ac -> ac.getId()
                 .equals(context.getId()));
         }
-        if (targetGroup instanceof final ElasticInfrastructure elasticInfrastructure) {
-            return elasticInfrastructure.getPCM_ResourceEnvironment()
+        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
+            return infrastructureGroup.getPCM_ResourceEnvironment()
                 .getResourceContainer_ResourceEnvironment()
                 .stream()
                 .anyMatch(rc -> getContainerRelatedToContext(context).anyMatch(rcp -> rcp.getId()
@@ -169,7 +169,8 @@ public class TargetGroupUtils {
      * is referenced by an assembly contexts. Depending on the type of the target group, the
      * assembly contexts to consider are either the unit assembly contexts (or any of the replicated
      * ones) in case of {@link ServiceGroup} and {@link CompetingConsumersGroup}, or every assembly
-     * context that is referencing a resource container in the {@link ElasticInfrastructure}.
+     * context that is referencing a resource container in the
+     * {@link org.palladiosimulator.elasticity.targets.InfrastructureGroup}.
      * 
      * @param operationSignature
      *            The signature to check.
@@ -185,7 +186,7 @@ public class TargetGroupUtils {
         if (targetGroup instanceof final ServiceGroup serviceGroup) {
             return anyContextHasSignature(getAllContextsToConsider(serviceGroup), operationSignature);
         }
-        if (targetGroup instanceof final ElasticInfrastructure infrastructure) {
+        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructure) {
             return anyContextHasSignature(getRelatedAssemblyContextFromInfrastructure(infrastructure),
                     operationSignature);
         }
@@ -197,13 +198,13 @@ public class TargetGroupUtils {
      * Helper method for retrieving assembly contexts that reference any of the resource containers
      * in the Elastic Infrastructure.
      * 
-     * @param infrastructure
+     * @param infrastructureGroup
      *            The infrastructure of containers.
      * @return A stream of assembly context is reference
      */
     private static Stream<AssemblyContext> getRelatedAssemblyContextFromInfrastructure(
-            final ElasticInfrastructure infrastructure) {
-        return infrastructure.getPCM_ResourceEnvironment()
+            final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
+        return infrastructureGroup.getPCM_ResourceEnvironment()
             .getResourceContainer_ResourceEnvironment()
             .stream()
             .flatMap(rc -> allocation.getAllocationContexts_Allocation()

@@ -11,7 +11,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.
 import org.palladiosimulator.analyzer.slingshot.common.events.DESEvent;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
 import org.palladiosimulator.elasticity.targets.TargetGroup;
-import org.palladiosimulator.elasticitymeasuringpoint.ElasticInfrastructureMeasuringPoint;
+import org.palladiosimulator.scalablepcmgroupmeasuringpoint.InfrastructureGroupMeasuringPoint;
 
 public class TargetGroupChecker implements Filter {
 
@@ -28,7 +28,7 @@ public class TargetGroupChecker implements Filter {
         final DESEvent event = objectWrapper.getEventToFilter();
         if (event instanceof final MeasurementMade mm) {
             if (mm.getEntity()
-                .getMeasuringPoint() instanceof ElasticInfrastructureMeasuringPoint) {
+                .getMeasuringPoint() instanceof InfrastructureGroupMeasuringPoint) {
                 return FilterResult.success(event);
             }
             if (this.measuringPointInsideTargetGroupSwitch.doSwitch(mm.getEntity()
