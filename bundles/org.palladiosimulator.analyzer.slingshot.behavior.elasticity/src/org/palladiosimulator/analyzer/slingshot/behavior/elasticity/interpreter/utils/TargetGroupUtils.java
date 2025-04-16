@@ -16,10 +16,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
-import org.palladiosimulator.semanticelasticityspec.CompetingConsumersGroupCfg;
-import org.palladiosimulator.semanticelasticityspec.Configuration;
-import org.palladiosimulator.semanticelasticityspec.ElasticInfrastructureCfg;
-import org.palladiosimulator.semanticelasticityspec.ServiceGroupCfg;
+import org.palladiosimulator.scalablepcmgroups.InfrastructureGroup;
+import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
 
 /**
  * Utility methods for checking whether some component are part of, or related to the target group.
@@ -32,8 +30,8 @@ public class TargetGroupUtils {
 
     private static final Allocation allocation = Slingshot.getInstance()
         .getInstance(Allocation.class);
-    private static final Configuration configuration = Slingshot.getInstance()
-        .getInstance(Configuration.class);
+    private static final ScalablePCMGroups scalablePCMGroups = Slingshot.getInstance()
+        .getInstance(ScalablePCMGroups.class);
 
     /**
      * Checks whether the container is part of the elastic infrastructure.
@@ -47,10 +45,10 @@ public class TargetGroupUtils {
     public static boolean isContainerInElasticInfrastructure(final ResourceContainer container,
             final ElasticInfrastructure targetGroup) {
 
-        List<ElasticInfrastructureCfg> elasticInfraCfgs = configuration.getTargetCfgs()
+        List<InfrastructureGroup> elasticInfraCfgs = scalablePCMGroups.getTargetCfgs()
             .stream()
-            .filter(cfg -> cfg instanceof ElasticInfrastructureCfg c)
-            .map(c -> (ElasticInfrastructureCfg) c)
+            .filter(cfg -> cfg instanceof InfrastructureGroup c)
+            .map(c -> (InfrastructureGroup) c)
             .filter(c -> c.getUnit()
                 .getId()
                 .equals(targetGroup.getUnit()
@@ -264,10 +262,10 @@ public class TargetGroupUtils {
      * well.
      */
     private static Stream<AssemblyContext> getAllContextsToConsider(final ServiceGroup serviceGroup) {
-        return configuration.getTargetCfgs()
+        return scalablePCMGroups.getTargetCfgs()
             .stream()
-            .filter(ServiceGroupCfg.class::isInstance)
-            .map(ServiceGroupCfg.class::cast)
+            .filter(org.palladiosimulator.scalablepcmgroups.ServiceGroup.class::isInstance)
+            .map(org.palladiosimulator.scalablepcmgroups.ServiceGroup.class::cast)
             .filter(sgc -> sgc.getUnit()
                 .getId()
                 .equals(serviceGroup.getUnitAssembly()
@@ -278,10 +276,10 @@ public class TargetGroupUtils {
 
     private static Stream<AssemblyContext> getAllContextsToConsider(
             final CompetingConsumersGroup competingConsumersGroup) {
-        return configuration.getTargetCfgs()
+        return scalablePCMGroups.getTargetCfgs()
             .stream()
-            .filter(CompetingConsumersGroupCfg.class::isInstance)
-            .map(CompetingConsumersGroupCfg.class::cast)
+            .filter(org.palladiosimulator.scalablepcmgroups.CompetingConsumersGroup.class::isInstance)
+            .map(org.palladiosimulator.scalablepcmgroups.CompetingConsumersGroup.class::cast)
             .filter(ccgc -> ccgc.getUnit()
                 .getId()
                 .equals(competingConsumersGroup.getUnitAssembly()

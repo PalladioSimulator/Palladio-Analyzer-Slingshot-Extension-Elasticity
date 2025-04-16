@@ -5,7 +5,7 @@ import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.Subscrib
 import org.palladiosimulator.analyzer.slingshot.eventdriver.annotations.eventcontract.OnEvent;
 import org.palladiosimulator.analyzer.slingshot.ui.events.ArchitectureModelsTabBuilderStarted;
 import org.palladiosimulator.analyzer.slingshot.workflow.events.WorkflowLaunchConfigurationBuilderInitialized;
-import org.palladiosimulator.semanticelasticityspec.Configuration;
+import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
 
 @OnEvent(when = ArchitectureModelsTabBuilderStarted.class)
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)
@@ -17,7 +17,7 @@ public class SemanticModelLaunchConfig implements SystemBehaviorExtension {
     public void onArchitectureModelsTab(final ArchitectureModelsTabBuilderStarted tab) {
         tab.newModelDefinition()
             .fileName(FILE_NAME)
-            .modelClass(Configuration.class)
+            .modelClass(ScalablePCMGroups.class)
             .label("Elasticity Spec Semantic Configuration")
             .optional(true)
             .build();

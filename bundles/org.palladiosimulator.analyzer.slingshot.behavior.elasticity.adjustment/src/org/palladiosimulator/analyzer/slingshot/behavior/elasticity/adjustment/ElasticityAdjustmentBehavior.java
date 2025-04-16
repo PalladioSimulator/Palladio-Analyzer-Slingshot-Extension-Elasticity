@@ -30,9 +30,9 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
-import org.palladiosimulator.semanticelasticityspec.Configuration;
-import org.palladiosimulator.semanticelasticityspec.ElasticInfrastructureCfg;
-import org.palladiosimulator.semanticelasticityspec.SemanticelasticityFactory;
+import org.palladiosimulator.scalablepcmgroups.InfrastructureGroup;
+import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
+import org.palladiosimulator.scalablepcmgroups.scalablepcmgroupsFactory;
 
 @OnEvent(when = ModelAdjustmentRequested.class, then = ModelAdjusted.class, cardinality = EventCardinality.SINGLE)
 public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension {
@@ -45,17 +45,17 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
     private final QVToReconfigurator reconfigurator;
     private final Iterable<QVToModelTransformation> transformations;
     private final Allocation allocation;
-    private final Configuration semanticConfiguration;
+    private final ScalablePCMGroups scalablePCMGroups;
     private final MonitorRepository monitorRepository;
 
     @Inject
-    public ElasticityAdjustmentBehavior(final Allocation allocation, final @Nullable MonitorRepository monitorRepository,
-            final @Nullable Configuration semanticConfiguration, final @Nullable ElasticitySpec elasticitySpec,
-            final QVToReconfigurator reconfigurator,
+    public ElasticityAdjustmentBehavior(final Allocation allocation,
+            final @Nullable MonitorRepository monitorRepository, final @Nullable ScalablePCMGroups scalablePCMGroups,
+            final @Nullable ElasticitySpec elasticitySpec, final QVToReconfigurator reconfigurator,
             @Named(ElasticityAdjustorModule.MAIN_QVTO) final Iterable<QVToModelTransformation> transformations) {
-        this.activated = monitorRepository != null && semanticConfiguration != null && elasticitySpec != null;
+        this.activated = monitorRepository != null && scalablePCMGroups != null && elasticitySpec != null;
         this.allocation = allocation;
-        this.semanticConfiguration = semanticConfiguration;
+        this.scalablePCMGroups = scalablePCMGroups;
         this.elasticitySpec = elasticitySpec;
         this.reconfigurator = reconfigurator;
         this.transformations = transformations;
@@ -78,13 +78,13 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
          * cached
          */
         if (event.getScalingPolicy() instanceof ModelBasedScalingPolicy) {
-            final Configuration configuration = this.semanticConfiguration;
-            configuration.setEnactedPolicy(event.getScalingPolicy());
+            final ScalablePCMGroups scalablePCMGroups = this.scalablePCMGroups;
+            scalablePCMGroups.setEnactedPolicy(event.getScalingPolicy());
             this.reconfigurator.getModelCache()
-                .storeModel(configuration);
+                .storeModel(scalablePCMGroups);
         }
         // Set the enacted policy for the next transformation
-        this.semanticConfiguration.setEnactedPolicy(event.getScalingPolicy());
+        this.scalablePCMGroups.setEnactedPolicy(event.getScalingPolicy());
         final List<ResourceContainer> oldContainers = new ArrayList<>(
                 environment.getResourceContainer_ResourceEnvironment());
         final List<AllocationContext> oldAllocationContexts = new ArrayList<>(
@@ -183,10 +183,10 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
     private ResourceContainer getUnitContainer(final ResourceContainer referenceContainer) {
         assert referenceContainer != null : "Reference Container is null but must not be null.";
 
-        return this.semanticConfiguration.getTargetCfgs()
+        return this.scalablePCMGroups.getTargetCfgs()
             .stream()
-            .filter(ElasticInfrastructureCfg.class::isInstance)
-            .map(ElasticInfrastructureCfg.class::cast)
+            .filter(InfrastructureGroup.class::isInstance)
+            .map(InfrastructureGroup.class::cast)
             .filter(eicfg -> eicfg.getElements()
                 .contains(referenceContainer))
             .map(el -> el.getUnit())
@@ -199,9 +199,8 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
      * dedicated launch tab instead.
      */
 
-    private ElasticInfrastructureCfg createElasticInfrastructureCfg(final ResourceEnvironment environment) {
-        final ElasticInfrastructureCfg targetGroupConfig = SemanticelasticityFactory.eINSTANCE
-            .createElasticInfrastructureCfg();
+    private InfrastructureGroup createElasticInfrastructureCfg(final ResourceEnvironment environment) {
+        final InfrastructureGroup targetGroupConfig = scalablepcmgroupsFactory.eINSTANCE.createInfrastructureGroup();
         targetGroupConfig.setResourceEnvironment(environment);
         targetGroupConfig.setUnit(environment.getResourceContainer_ResourceEnvironment()
             .stream()
@@ -215,25 +214,25 @@ public class ElasticityAdjustmentBehavior implements SimulationBehaviorExtension
     /**
      * Helper method for creating the {@link Configuration}
      */
-    private Configuration createConfiguration(final ModelAdjustmentRequested event,
+    private ScalablePCMGroups createConfiguration(final ModelAdjustmentRequested event,
             final ResourceEnvironment environment) {
-        final Configuration configuration = SemanticelasticityFactory.eINSTANCE.createConfiguration();
-        configuration.setAllocation(allocation);
-        configuration.setResourceEnvironment(environment);
-        configuration.setElasticitySpec(elasticitySpec);
-        configuration.setSystem(allocation.getSystem_Allocation());
-        configuration.setRepository(allocation.getSystem_Allocation()
+        final ScalablePCMGroups scalablePCMGroups = scalablepcmgroupsFactory.eINSTANCE.createScalablePCMGroups();
+        scalablePCMGroups.setAllocation(allocation);
+        scalablePCMGroups.setResourceEnvironment(environment);
+        scalablePCMGroups.setElasticitySpec(elasticitySpec);
+        scalablePCMGroups.setSystem(allocation.getSystem_Allocation());
+        scalablePCMGroups.setRepository(allocation.getSystem_Allocation()
             .getAssemblyContexts__ComposedStructure()
             .get(0)
             .getEncapsulatedComponent__AssemblyContext()
             .getRepository__RepositoryComponent()); // TODO: What to do here?
-        configuration.setEnactedPolicy(event.getScalingPolicy());
+        scalablePCMGroups.setEnactedPolicy(event.getScalingPolicy());
 
-        final ElasticInfrastructureCfg targetGroupConfig = createElasticInfrastructureCfg(environment);
-        configuration.getTargetCfgs()
+        final InfrastructureGroup targetGroupConfig = createElasticInfrastructureCfg(environment);
+        scalablePCMGroups.getTargetCfgs()
             .add(targetGroupConfig);
 
-        return configuration;
+        return scalablePCMGroups;
     }
 
 }

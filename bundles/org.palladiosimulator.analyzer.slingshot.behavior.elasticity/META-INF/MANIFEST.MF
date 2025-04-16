@@ -16,4 +16,4 @@ Require-Bundle: org.palladiosimulator.analyzer.slingshot.core,
  org.palladiosimulator.pcm.edp2.measuringpoint,
  org.palladiosimulator.elasticity;bundle-version="1.0.0",
  org.palladiosimulator.elasticity.measuringpoint;bundle-version="1.0.0",
- org.palladiosimulator.elasticity.semantic;bundle-version="1.0.0"
+ org.palladiosimulator.scalablepcmgroups;bundle-version="1.0.0"

@@ -12,7 +12,7 @@ Require-Bundle: org.palladiosimulator.analyzer.slingshot.behavior.elasticity.dat
  org.eclipse.m2m.qvt.oml;bundle-version="3.10.4",
  de.uka.ipd.sdq.workflow.mdsd.blackboard,
  org.palladiosimulator.analyzer.workflow,
- org.palladiosimulator.elasticity.semantic,
+ org.palladiosimulator.scalablepcmgroups,
  org.palladiosimulator.analyzer.slingshot.ui.events,
  org.palladiosimulator.analyzer.slingshot.workflow.events
 Export-Package: org.palladiosimulator.analyzer.slingshot.behavior.elasticity.monitor

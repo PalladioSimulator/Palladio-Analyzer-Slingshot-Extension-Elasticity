@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.analyzer.slingshot.core.extension.ModelProvider;
 import org.palladiosimulator.analyzer.slingshot.core.extension.PCMResourceSetPartitionProvider;
-import org.palladiosimulator.semanticelasticityspec.Configuration;
-import org.palladiosimulator.semanticelasticityspec.SemanticelasticityPackage;
+import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
+import org.palladiosimulator.scalablepcmgroups.scalablepcmgroupsPackage;
 
-public class SemanticModelProvider implements ModelProvider<Configuration> {
+public class SemanticModelProvider implements ModelProvider<ScalablePCMGroups> {
 
     private static final Logger LOGGER = Logger.getLogger(SemanticModelProvider.class);
 
@@ -23,14 +23,14 @@ public class SemanticModelProvider implements ModelProvider<Configuration> {
     }
 
     @Override
-    public Configuration get() {
+    public ScalablePCMGroups get() {
         final List<EObject> configurations = resourceSet.get()
-            .getElement(SemanticelasticityPackage.eINSTANCE.getConfiguration());
+            .getElement(scalablepcmgroupsPackage.eINSTANCE.getScalablePCMGroups());
         if (configurations.size() == 0) {
             LOGGER.warn("Semantic model not present: List size is 0.");
             return null;
         }
-        return (Configuration) configurations.get(0);
+        return (ScalablePCMGroups) configurations.get(0);
     }
 
 }

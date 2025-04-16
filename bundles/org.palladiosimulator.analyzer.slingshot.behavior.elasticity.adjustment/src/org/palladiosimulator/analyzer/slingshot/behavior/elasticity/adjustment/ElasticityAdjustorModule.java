@@ -8,34 +8,34 @@ import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.adjustment.q
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.adjustment.ui.SemanticModelLaunchConfig;
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.adjustment.ui.SemanticModelProvider;
 import org.palladiosimulator.analyzer.slingshot.core.extension.AbstractSlingshotExtension;
-import org.palladiosimulator.semanticelasticityspec.Configuration;
+import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
 
 import com.google.inject.Provides;
 
 public class ElasticityAdjustorModule extends AbstractSlingshotExtension {
 
-	private static final String MAIN_QVTO_FILE = "platform:/plugin/org.palladiosimulator.elasticity.semantic.transformations/transformations/elasticity/MainTransformation.qvto";
-	public static final String MAIN_QVTO = "mainqvto";
-	
-	@Override
-	protected void configure() {
-		install(ElasticityAdjustmentBehavior.class);
-		install(SemanticModelLaunchConfig.class);
-		provideModel(Configuration.class, SemanticModelProvider.class);
+    private static final String MAIN_QVTO_FILE = "platform:/plugin/org.palladiosimulator.elasticity.semantic.transformations/transformations/elasticity/MainTransformation.qvto";
+    public static final String MAIN_QVTO = "mainqvto";
 
-		bind(QVToReconfigurator.class);
-	}
+    @Override
+    protected void configure() {
+        install(ElasticityAdjustmentBehavior.class);
+        install(SemanticModelLaunchConfig.class);
+        provideModel(ScalablePCMGroups.class, SemanticModelProvider.class);
 
-	@Provides
-	@Named(MAIN_QVTO)
-	public String mainQvtoFile() {
-		return MAIN_QVTO_FILE;
-	}
-	
-	@Provides
-	@Named(MAIN_QVTO)
-	public Iterable<QVToModelTransformation> getTransformations() {
-		return QVToLoader.loadFromFiles(MAIN_QVTO_FILE);
-	}
-	
+        bind(QVToReconfigurator.class);
+    }
+
+    @Provides
+    @Named(MAIN_QVTO)
+    public String mainQvtoFile() {
+        return MAIN_QVTO_FILE;
+    }
+
+    @Provides
+    @Named(MAIN_QVTO)
+    public Iterable<QVToModelTransformation> getTransformations() {
+        return QVToLoader.loadFromFiles(MAIN_QVTO_FILE);
+    }
+
 }
