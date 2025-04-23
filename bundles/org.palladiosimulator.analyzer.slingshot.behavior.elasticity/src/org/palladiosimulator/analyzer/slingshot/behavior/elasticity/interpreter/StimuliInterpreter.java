@@ -9,7 +9,7 @@ import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.
 import org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entity.trigger.TaskCountTriggerChecker;
 import org.palladiosimulator.analyzer.slingshot.eventdriver.entity.Subscriber;
 import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
-import org.palladiosimulator.elasticity.targets.CompetingConsumersGroup;
+import org.palladiosimulator.elasticity.targets.CompetingConsumersGroupTarget;
 import org.palladiosimulator.elasticity.triggers.SimpleFireOnValue;
 import org.palladiosimulator.elasticity.triggers.expectations.ExpectedCount;
 import org.palladiosimulator.elasticity.triggers.expectations.ExpectedPercentage;
@@ -83,7 +83,7 @@ final class StimuliInterpreter extends StimuliSwitch<InterpretationResult> {
 
     @Override
     public InterpretationResult caseQueueLength(final QueueLength object) {
-        if (!(this.scalingTriggerInterpreter.policy.getTargetGroup() instanceof CompetingConsumersGroup)) {
+        if (!(this.scalingTriggerInterpreter.policy.getTargetGroup() instanceof CompetingConsumersGroupTarget)) {
             throw new IllegalArgumentException("The QueueLength trigger is only for CompetingConsumersGroup");
         }
 

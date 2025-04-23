@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.palladiosimulator.analyzer.slingshot.core.Slingshot;
-import org.palladiosimulator.elasticity.targets.CompetingConsumersGroup;
-import org.palladiosimulator.elasticity.targets.ServiceGroup;
+import org.palladiosimulator.elasticity.targets.CompetingConsumersGroupTarget;
+import org.palladiosimulator.elasticity.targets.InfrastructureGroupTarget;
+import org.palladiosimulator.elasticity.targets.ServiceGroupTarget;
 import org.palladiosimulator.elasticity.targets.TargetGroup;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -15,8 +16,10 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.scalablepcmgroups.CompetingConsumersGroup;
 import org.palladiosimulator.scalablepcmgroups.InfrastructureGroup;
 import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
+import org.palladiosimulator.scalablepcmgroups.ServiceGroup;
 
 /**
  * Utility methods for checking whether some component are part of, or related to the target group.
@@ -42,7 +45,7 @@ public class TargetGroupUtils {
      * @return true iff the container is part of the environment.
      */
     public static boolean isContainerInInfrastructureGroup(final ResourceContainer container,
-            final org.palladiosimulator.elasticity.targets.InfrastructureGroup targetGroup) {
+            final InfrastructureGroup targetGroup) {
 
         List<InfrastructureGroup> infrastructureGroups = scalablePCMGroups.getTargetCfgs()
             .stream()
@@ -71,7 +74,7 @@ public class TargetGroupUtils {
      * 
      * @param container
      *            The container to check.
-     * @param serviceGroup
+     * @param serviceGroupTarget
      *            The service group to consider the assembly contexts from.
      * @return true if the container is part of the service group.
      * @see #isContainerInCompetingConsumersGroup(ResourceContainer, CompetingConsumersGroup)
@@ -111,18 +114,19 @@ public class TargetGroupUtils {
      * @return true if the container is part of the target group.
      * 
      * @see #isContainerInCompetingConsumersGroup(ResourceContainer, CompetingConsumersGroup)
-     * @see #isContainerInInfrastructureGroup(ResourceContainer, InfrastructureGroup)
+     * @see #isContainerInInfrastructureGroup(ResourceContainer, InfrastructureGroupTarget)
      * @see #isContainerInServiceGroup(ResourceContainer, ServiceGroup)
      */
     public static boolean isContainerInTargetGroup(final ResourceContainer container, final TargetGroup targetGroup) {
-        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
-            return isContainerInInfrastructureGroup(container, infrastructureGroup);
+        if (targetGroup instanceof final InfrastructureGroupTarget infrastructureGroup) {
+            return isContainerInInfrastructureGroup(container, infrastructureGroup.getInfrastructureGroup());
         }
-        if (targetGroup instanceof final ServiceGroup serviceGroup) {
-            return isContainerInServiceGroup(container, serviceGroup);
+        if (targetGroup instanceof final ServiceGroupTarget serviceGroupTarget) {
+            return isContainerInServiceGroup(container, serviceGroupTarget.getServiceGroup());
         }
-        if (targetGroup instanceof final CompetingConsumersGroup competingConsumersGroup) {
-            return isContainerInCompetingConsumersGroup(container, competingConsumersGroup);
+        if (targetGroup instanceof final CompetingConsumersGroupTarget competingConsumersGroupTarget) {
+            return isContainerInCompetingConsumersGroup(container,
+                    competingConsumersGroupTarget.getCompetingConsumersGroup());
         }
 
         return false;
@@ -149,8 +153,9 @@ public class TargetGroupUtils {
             return getAllContextsToConsider(serviceGroup).anyMatch(ac -> ac.getId()
                 .equals(context.getId()));
         }
-        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
-            return infrastructureGroup.getPCM_ResourceEnvironment()
+        if (targetGroup instanceof final InfrastructureGroupTarget infrastructureGroup) {
+            return infrastructureGroup.getInfrastructureGroup()
+                .getResourceEnvironment()
                 .getResourceContainer_ResourceEnvironment()
                 .stream()
                 .anyMatch(rc -> getContainerRelatedToContext(context).anyMatch(rcp -> rcp.getId()
@@ -186,7 +191,7 @@ public class TargetGroupUtils {
         if (targetGroup instanceof final ServiceGroup serviceGroup) {
             return anyContextHasSignature(getAllContextsToConsider(serviceGroup), operationSignature);
         }
-        if (targetGroup instanceof final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructure) {
+        if (targetGroup instanceof final InfrastructureGroupTarget infrastructure) {
             return anyContextHasSignature(getRelatedAssemblyContextFromInfrastructure(infrastructure),
                     operationSignature);
         }
@@ -203,8 +208,9 @@ public class TargetGroupUtils {
      * @return A stream of assembly context is reference
      */
     private static Stream<AssemblyContext> getRelatedAssemblyContextFromInfrastructure(
-            final org.palladiosimulator.elasticity.targets.InfrastructureGroup infrastructureGroup) {
-        return infrastructureGroup.getPCM_ResourceEnvironment()
+            final InfrastructureGroupTarget infrastructureGroup) {
+        return infrastructureGroup.getInfrastructureGroup()
+            .getResourceEnvironment()
             .getResourceContainer_ResourceEnvironment()
             .stream()
             .flatMap(rc -> allocation.getAllocationContexts_Allocation()
@@ -269,7 +275,7 @@ public class TargetGroupUtils {
             .map(org.palladiosimulator.scalablepcmgroups.ServiceGroup.class::cast)
             .filter(sgc -> sgc.getUnit()
                 .getId()
-                .equals(serviceGroup.getUnitAssembly()
+                .equals(serviceGroup.getUnit()
                     .getId()))
             .flatMap(sgc -> sgc.getElements()
                 .stream());
@@ -283,7 +289,7 @@ public class TargetGroupUtils {
             .map(org.palladiosimulator.scalablepcmgroups.CompetingConsumersGroup.class::cast)
             .filter(ccgc -> ccgc.getUnit()
                 .getId()
-                .equals(competingConsumersGroup.getUnitAssembly()
+                .equals(competingConsumersGroup.getUnit()
                     .getId()))
             .flatMap(ccgc -> Stream.concat(Stream.of(ccgc.getBrokerAssembly()), ccgc.getElements()
                 .stream()));
