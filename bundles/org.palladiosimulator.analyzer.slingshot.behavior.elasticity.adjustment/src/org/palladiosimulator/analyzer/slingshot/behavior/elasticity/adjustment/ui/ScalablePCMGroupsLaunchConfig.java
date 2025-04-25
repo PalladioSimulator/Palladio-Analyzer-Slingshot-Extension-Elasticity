@@ -9,23 +9,23 @@ import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
 
 @OnEvent(when = ArchitectureModelsTabBuilderStarted.class)
 @OnEvent(when = WorkflowLaunchConfigurationBuilderInitialized.class)
-public class SemanticModelLaunchConfig implements SystemBehaviorExtension {
+public class ScalablePCMGroupsLaunchConfig implements SystemBehaviorExtension {
 
-    private static final String FILE_NAME = "semanticelasticity";
+    private static final String FILE_NAME = "scalablepcmgroups";
 
     @Subscribe
     public void onArchitectureModelsTab(final ArchitectureModelsTabBuilderStarted tab) {
         tab.newModelDefinition()
             .fileName(FILE_NAME)
             .modelClass(ScalablePCMGroups.class)
-            .label("Elasticity Spec Semantic Configuration")
+            .label("Scalable PCM Groups Configuration")
             .optional(true)
             .build();
     }
 
     @Subscribe
     public void onWorkflowConfiguration(final WorkflowLaunchConfigurationBuilderInitialized init) {
-        init.getConfiguration(FILE_NAME, "semanticelasticity", (conf, model) -> conf.addOtherModelFile((String) model));
+        init.getConfiguration(FILE_NAME, "scalablepcmgroups", (conf, model) -> conf.addOtherModelFile((String) model));
     }
 
 }

@@ -11,14 +11,14 @@ import org.palladiosimulator.analyzer.slingshot.core.extension.PCMResourceSetPar
 import org.palladiosimulator.scalablepcmgroups.ScalablePCMGroups;
 import org.palladiosimulator.scalablepcmgroups.scalablepcmgroupsPackage;
 
-public class SemanticModelProvider implements ModelProvider<ScalablePCMGroups> {
+public class ScalablePCMGroupsModelProvider implements ModelProvider<ScalablePCMGroups> {
 
-    private static final Logger LOGGER = Logger.getLogger(SemanticModelProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(ScalablePCMGroupsModelProvider.class);
 
     private final PCMResourceSetPartitionProvider resourceSet;
 
     @Inject
-    public SemanticModelProvider(final PCMResourceSetPartitionProvider resourceSet) {
+    public ScalablePCMGroupsModelProvider(final PCMResourceSetPartitionProvider resourceSet) {
         this.resourceSet = resourceSet;
     }
 
