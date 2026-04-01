@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Data
+Bundle-SymbolicName: org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.palladiosimulator.analyzer.slingshot.common,
+ org.palladiosimulator.elasticity,
+ org.palladiosimulator.monitorrepository,
+ org.palladiosimulator.analyzer.slingshot.eventdriver
+Export-Package: org.palladiosimulator.analyzer.slingshot.behavior.elasticity.data

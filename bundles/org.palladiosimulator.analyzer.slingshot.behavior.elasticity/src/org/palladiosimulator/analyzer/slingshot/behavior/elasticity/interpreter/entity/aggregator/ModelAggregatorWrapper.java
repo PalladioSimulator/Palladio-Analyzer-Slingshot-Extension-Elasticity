@@ -1,0 +1,16 @@
+package org.palladiosimulator.analyzer.slingshot.behavior.elasticity.interpreter.entity.aggregator;
+
+import org.palladiosimulator.analyzer.slingshot.monitor.data.events.MeasurementMade;
+import org.palladiosimulator.elasticity.triggers.stimuli.Stimulus;
+import org.palladiosimulator.metricspec.BaseMetricDescription;
+import org.palladiosimulator.metricspec.MetricSetDescription;
+
+public abstract class ModelAggregatorWrapper<T extends Stimulus> {
+
+    protected MetricSetDescription metricSetDescription;
+    protected BaseMetricDescription baseMetricDescription;
+
+    public abstract double getResult() throws NotEmittableException;
+
+    public abstract void aggregateMeasurement(final MeasurementMade measurementMade);
+}
